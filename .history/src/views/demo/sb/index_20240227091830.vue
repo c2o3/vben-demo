@@ -1,0 +1,53 @@
+<template>
+  <a-form :model="formState" :label-col="labelCol" :wrapper-col="wrapperCol" layout="vertical">
+    <a-row>
+      <a-col>
+        <a-radio-group>
+          <a-radio label="1">1111</a-radio>
+          <a-radio label="2">1</a-radio>
+          <a-radio>2</a-radio>
+          <a-radio>3</a-radio>
+        </a-radio-group>
+      </a-col>
+      <a-col>
+        <a-input>11111</a-input>
+      </a-col>
+    </a-row>
+    <!-- <a-form-item label="Resources">
+      <a-radio-group v-model:value="formState.resource" @change="handler()">
+        <a-radio value="1">Sponsor</a-radio>
+        <a-radio value="2">Venue</a-radio>
+      </a-radio-group>
+    </a-form-item> -->
+  </a-form>
+</template>
+<script lang="ts">
+  import { defineComponent, reactive } from 'vue'
+  import { Form, Input, Radio, Row, Col } from 'ant-design-vue'
+  import type { UnwrapRef } from 'vue'
+
+  export default defineComponent({
+    components: {
+      AForm: Form,
+      AInput: Input,
+      ARadioGroup: Radio.Group,
+      ARadio: Radio,
+      ARow: Row,
+      ACol: Col,
+    },
+    setup() {
+      interface FormState {
+        resource: string
+      }
+      const formState: UnwrapRef<FormState> = reactive({
+        resource: '',
+      })
+      const handler = () => {
+        console.log(formState.resource)
+      }
+      const labelCol = { style: { width: '150px' } }
+      const wrapperCol = { span: 14 }
+      return { formState, labelCol, wrapperCol, handler }
+    },
+  })
+</script>

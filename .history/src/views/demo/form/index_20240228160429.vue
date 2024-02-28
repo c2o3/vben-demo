@@ -1,0 +1,46 @@
+<template>
+  <a-form class="w-5/12" :rules="rules" ref="formRef">
+    <a-row>
+      <a-radio-group v-model:value="selectedRadioId" class="w-11/12">
+        <a-col :span="24" v-for="item in formItems" :key="item.id" class="pt-3">
+          <a-radio :value="item.id">{{ item.radioLabel }}</a-radio>
+          <a-input v-model:value="item.inputValue" style="width: 400px" />
+        </a-col>
+      </a-radio-group>
+    </a-row>
+    <a-button type="primary" @click="handleSubmit">提交</a-button>
+  </a-form>
+</template>
+
+<script>
+  import { defineComponent, ref } from 'vue'
+  import type { Rule } from 'ant-design-vue/es/form'
+  import type { FormInstance } from 'ant-design-vue'
+  import { Form, Input, Radio, Row, Col, Button } from 'ant-design-vue'
+
+  export default defineComponent({
+    components: {
+      AForm: Form,
+      AInput: Input,
+      ARadioGroup: Radio.Group,
+      ARadio: Radio,
+      ARow: Row,
+      ACol: Col,
+      AButton: Button,
+    },
+    setup() {
+      const selectedRadioId = ref([])
+
+      const formItems = ref([
+        { id: '1', radioLabel: '选项A：' },
+        { id: '2', radioLabel: '选项B：' },
+        { id: '3', radioLabel: '选项C：' },
+        { id: '4', radioLabel: '选项D：' },
+      ])
+      const handleSubmit = () => {
+        console.log(formItems.value, selectedRadioId.value)
+      }
+      return { formItems, selectedRadioId, handleSubmit }
+    },
+  })
+</script>
