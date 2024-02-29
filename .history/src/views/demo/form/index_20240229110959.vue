@@ -27,6 +27,10 @@
   import type { Rule } from 'ant-design-vue/es/form'
   import type { FormInstance } from 'ant-design-vue'
   import { Form, Input, Radio, Row, Col, Button } from 'ant-design-vue'
+  // interface FormState {
+  //   radio: number
+  //   input: string
+  // }
   export default defineComponent({
     components: {
       AForm: Form,
@@ -39,6 +43,10 @@
     },
     setup() {
       const formRef = ref<FormInstance>()
+      // const formState = reactive<FormState>({
+      //   radio:  ,
+      //   input: '',
+      // })
       const validateRadio = async (_rule: Rule, value: string) => {
         if (value === '') {
           return Promise.reject('Please input the password')
@@ -70,7 +78,7 @@
           .validate()
           .then(() => {
             console.log('Selected ID:', selectedRadioId.value)
-            console.log('Form Items:', formItems.value.inputvalue)
+            console.log('Form Items:', formItems.value)
             // 处理表单提交逻辑
           })
           .catch((err) => {

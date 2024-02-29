@@ -70,7 +70,7 @@
           .validate()
           .then(() => {
             console.log('Selected ID:', selectedRadioId.value)
-            console.log('Form Items:', formItems.value.inputvalue)
+            console.log('Form Items:', formItems.inputvalue)
             // 处理表单提交逻辑
           })
           .catch((err) => {
