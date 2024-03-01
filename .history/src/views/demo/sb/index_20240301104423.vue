@@ -18,8 +18,8 @@
 </template>
 
 <script>
-  import { defineComponent, ref, computed } from 'vue'
-  import { Form, Input, Checkbox, CheckboxGroup, Row, Col, Button, message } from 'ant-design-vue'
+  import { defineComponent, ref } from 'vue'
+  import { Form, Input, Checkbox, CheckboxGroup, Row, Col, Button } from 'ant-design-vue'
 
   export default defineComponent({
     components: {
@@ -33,36 +33,44 @@
     },
     setup() {
       const selectedCheckboxIds = ref([])
+
       const formItems = ref([
         { id: '1', radioLabel: '选项A：', inputValue: '' },
         { id: '2', radioLabel: '选项B：', inputValue: '' },
         { id: '3', radioLabel: '选项C：', inputValue: '' },
         { id: '4', radioLabel: '选项D：', inputValue: '' },
       ])
-
-      const isFormValid = computed(() => {
-        const hasEnoughOptionsSelected = selectedCheckboxIds.value.length >= 2
-        const hasAllInputsFilled = formItems.value.every((item) => item.inputValue.trim())
-        return hasEnoughOptionsSelected && hasAllInputsFilled
-      })
-
       const handleSubmit = () => {
-        if (!isFormValid.value) {
-          message.warning('请确保选择至少两个选项并填写所有选项内容。')
-          return
+        let isFormValid = true
+        let isAnyInputEmpty = false // 新增变量，用于检查是否有任何一个输入框为空
+        if (!selectedRadioId.value) {
+          message.warning('请选择一个选项作为正确答案！')
+          isFormValid = false
         }
-        console.log('提交表单:', {
-          selectedCheckboxIds: selectedCheckboxIds.value,
-          formItems: formItems.value,
-        })
-        message.success('提交成功！')
+        for (const item of formItems.value) {
+          if (!item.inputValue.trim()) {
+            isAnyInputEmpty = true // 只要有一个输入框为空，就设置这个变量为 true
+            // 不再在这里弹出alert
+          }
+        }
+        // 循环结束后，根据isAnyInputEmpty变量的值决定是否弹出提示
+        if (isAnyInputEmpty) {
+          message.warning('请填写所有选项内容！')
+          isFormValid = false
+        }
+        if (isFormValid) {
+          console.log('提交表单:', {
+            selectedRadioId: selectedRadioId.value,
+            formItems: formItems.value,
+          })
+          message.success('提交成功！')
+          // 在这里执行进一步的提交操作...
+        }
       }
-
       const resetForm = () => {
-        selectedCheckboxIds.value = []
+        selectedRadioId.value = ''
         formItems.value.forEach((item) => (item.inputValue = ''))
       }
-
       return { formItems, selectedCheckboxIds, handleSubmit, resetForm }
     },
   })

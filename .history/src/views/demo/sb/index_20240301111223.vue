@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import { defineComponent, ref, computed } from 'vue'
+  import { defineComponent, ref } from 'vue'
   import { Form, Input, Checkbox, CheckboxGroup, Row, Col, Button, message } from 'ant-design-vue'
 
   export default defineComponent({

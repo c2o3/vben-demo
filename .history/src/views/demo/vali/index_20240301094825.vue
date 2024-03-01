@@ -3,11 +3,16 @@
     <a-row>
       <a-radio-group v-model:value="selectedRadioId" class="w-11/12">
         <a-col :span="24" v-for="item in formItems" :key="item.id" class="pt-3">
-          <!-- 简化规则定义，直接在提交时检查 -->
-          <a-form-item :name="`radio_${item.id}`">
+          <a-form-item
+            :rules="[{ required: true, message: '请选择一个正确答案！' }]"
+            :name="`radio_${item.id}`"
+          >
             <a-radio :value="item.id">{{ item.radioLabel }}</a-radio>
           </a-form-item>
-          <a-form-item :name="`input_${item.id}`">
+          <a-form-item
+            :rules="[{ required: true, message: '请输入选项内容！' }]"
+            :name="`input_${item.id}`"
+          >
             <a-input v-model:value="item.inputValue" style="width: 400px" />
           </a-form-item>
         </a-col>
@@ -42,31 +47,36 @@
       ])
 
       const handleSubmit = () => {
-        // 简化表单验证逻辑
+        let isFormValid = true
+        let isAnyInputEmpty = false // 新增变量，用于检查是否有任何一个输入框为空
         if (!selectedRadioId.value) {
           message.warning('请选择一个选项作为正确答案！')
-          return
+          isFormValid = false
         }
-
-        const isAnyInputEmpty = formItems.value.some((item) => !item.inputValue.trim())
+        for (const item of formItems.value) {
+          if (!item.inputValue.trim()) {
+            isAnyInputEmpty = true // 只要有一个输入框为空，就设置这个变量为 true
+            // 不再在这里弹出alert
+          }
+        }
+        // 循环结束后，根据isAnyInputEmpty变量的值决定是否弹出提示
         if (isAnyInputEmpty) {
-          message.warning('请填写所有选项内容且不为空！')
-          return
+          message.warning('请填写所有选项内容！')
+          isFormValid = false
         }
-
-        console.log('提交表单:', {
-          selectedRadioId: selectedRadioId.value,
-          formItems: formItems.value,
-        })
-        message.success('提交成功！')
-        // 执行提交操作...
+        if (isFormValid) {
+          console.log('提交表单:', {
+            selectedRadioId: selectedRadioId.value,
+            formItems: formItems.value,
+          })
+          message.success('提交成功！')
+          // 在这里执行进一步的提交操作...
+        }
       }
-
       const resetForm = () => {
         selectedRadioId.value = ''
         formItems.value.forEach((item) => (item.inputValue = ''))
       }
-
       return {
         formItems,
         selectedRadioId,
