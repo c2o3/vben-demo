@@ -6,7 +6,7 @@ const setup: AppRouteModule = {
   path: '/demo',
   name: 'Demo',
   component: LAYOUT,
-  redirect: '/demo/single',
+  redirect: '/demo',
   meta: {
     orderNo: 100000,
     icon: 'ant-design:meh-outlined',
@@ -14,8 +14,8 @@ const setup: AppRouteModule = {
   },
   children: [
     {
-      path: 'single',
-      name: 'single',
+      path: '/single',
+      name: '单选题',
       component: () => import('/@/views/demo/single/index.vue'),
       meta: {
         title: '单选题',
@@ -23,8 +23,8 @@ const setup: AppRouteModule = {
       },
     },
     {
-      path: 'multiple',
-      name: 'multiple',
+      path: '/multiple',
+      name: '多选题',
       component: () => import('/@/views/demo/multiple/index.vue'),
       meta: {
         title: '多选题',

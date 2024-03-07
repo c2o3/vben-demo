@@ -6,7 +6,7 @@ const setup: AppRouteModule = {
   path: '/demo',
   name: 'Demo',
   component: LAYOUT,
-  redirect: '/demo/single',
+  redirect: '/demo/form',
   meta: {
     orderNo: 100000,
     icon: 'ant-design:meh-outlined',
@@ -14,20 +14,20 @@ const setup: AppRouteModule = {
   },
   children: [
     {
-      path: 'single',
-      name: 'single',
-      component: () => import('/@/views/demo/single/index.vue'),
+      path: 'sb',
+      name: 'sbsbsbsbsb',
+      component: () => import('/@/views/demo/sb/index.vue'),
       meta: {
-        title: '单选题',
+        title: 'SBdemo',
         icon: 'ant-design:info-outlined',
       },
     },
     {
-      path: 'multiple',
-      name: 'multiple',
-      component: () => import('/@/views/demo/multiple/index.vue'),
+      path: 'valvalval',
+      name: 'valvalval',
+      component: () => import('/@/views/demo/vali/index.vue'),
       meta: {
-        title: '多选题',
+        title: 'Validemo',
         icon: 'ant-design:info-outlined',
       },
     },

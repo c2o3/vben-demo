@@ -6,7 +6,7 @@ const setup: AppRouteModule = {
   path: '/demo',
   name: 'Demo',
   component: LAYOUT,
-  redirect: '/demo/single',
+  redirect: '/demo',
   meta: {
     orderNo: 100000,
     icon: 'ant-design:meh-outlined',
@@ -14,7 +14,7 @@ const setup: AppRouteModule = {
   },
   children: [
     {
-      path: 'single',
+      path: '/single',
       name: 'single',
       component: () => import('/@/views/demo/single/index.vue'),
       meta: {
@@ -23,7 +23,7 @@ const setup: AppRouteModule = {
       },
     },
     {
-      path: 'multiple',
+      path: '/multiple',
       name: 'multiple',
       component: () => import('/@/views/demo/multiple/index.vue'),
       meta: {

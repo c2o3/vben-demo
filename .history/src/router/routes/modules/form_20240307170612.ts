@@ -6,7 +6,7 @@ const setup: AppRouteModule = {
   path: '/demo',
   name: 'Demo',
   component: LAYOUT,
-  redirect: '/demo/single',
+  redirect: '/demo',
   meta: {
     orderNo: 100000,
     icon: 'ant-design:meh-outlined',
